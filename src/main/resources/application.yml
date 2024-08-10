@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://ada-mc3-db.cx2kuso0c7nu.ap-northeast-2.rds.amazonaws.com:3306/junctionDB
+    username: admin
+    password: Hytt8v879r4qDgbqzddt
+  jpa:
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
