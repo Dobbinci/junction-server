@@ -32,6 +32,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("com.opencsv:opencsv:5.5")
     implementation("ch.hsr:geohash:1.3.0")
+    implementation("org.springframework.boot:spring-boot-starter-log4j2")
 
     compileOnly("org.projectlombok:lombok")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
@@ -47,6 +48,10 @@ dependencies {
     kapt("com.querydsl:querydsl-apt:$querydslVersion:jakarta")
     kapt("jakarta.annotation:jakarta.annotation-api")
     kapt("jakarta.persistence:jakarta.persistence-api")
+}
+
+configurations.all {
+    exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
 }
 
 kotlin {
