@@ -32,7 +32,7 @@ class IOLService(
         minPopulation: Double,
         maxPopulation: Double,
         geohash7: String
-    ) : MutableList<InformationOfLocation> {
+    ) : List<InformationOfLocation> {
         return iolRepository.findByFilters(
             time = time,
             minDecibel = minDecibel,

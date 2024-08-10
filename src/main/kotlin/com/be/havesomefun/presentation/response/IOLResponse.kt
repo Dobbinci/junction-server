@@ -4,6 +4,7 @@ import com.be.havesomefun.application.dto.IOLDto
 
 class IOLResponse {
     var id: Long? = null
+    var time: String? = null
     var avgDecibel: Double = 0.0
     var avgLightLux: Double = 0.0
     var population: Double = 0.0
@@ -13,6 +14,7 @@ class IOLResponse {
         fun of (iolDto: IOLDto) : IOLResponse {
             val iolResponse = IOLResponse()
             iolResponse.id = iolDto.id
+            iolResponse.time = iolDto.time
             iolResponse.avgDecibel = iolDto.avgDecibel
             iolResponse.avgLightLux = iolDto.avgLightLux
             iolResponse.population = iolDto.population

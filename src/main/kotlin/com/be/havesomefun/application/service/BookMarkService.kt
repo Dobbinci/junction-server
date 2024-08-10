@@ -14,4 +14,9 @@ class BookMarkService(
         val memberIOL = MemberIOL.of(member, iol)
         memberIOLRepository.save(memberIOL)
     }
+
+    fun getBookMarkList(member: Member) : List<InformationOfLocation> {
+        val iolList : List<InformationOfLocation> = member.memberIOLs?.map {it.iol ?: InformationOfLocation()} ?: listOf()
+        return iolList
+    }
 }

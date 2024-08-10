@@ -5,6 +5,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.OneToMany
 
 @Entity
 class Member {
@@ -15,6 +16,9 @@ class Member {
     var name: String? = null
     var password: String? = null
     var email: String? = null
+
+    @OneToMany(mappedBy = "member")
+    var memberIOLs: List<MemberIOL>? = null
 
     companion object {
         fun of (memberDto: MemberDto) : Member {

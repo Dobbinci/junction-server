@@ -28,7 +28,7 @@ class IOLRepositoryCustomImpl(
         }
 
         if (time.isNotEmpty()) {
-            builder.and(informationOfLocation.time.contains(time))
+            builder.and(informationOfLocation.time.eq(time))
         }
 
         if (minPopulation != 0.0) {
