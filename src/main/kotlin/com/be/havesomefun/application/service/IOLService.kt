@@ -6,6 +6,7 @@ import com.be.havesomefun.domain.entity.InformationOfLocation
 import com.opencsv.CSVReaderBuilder
 import java.io.FileReader
 import org.springframework.stereotype.Service
+import java.io.InputStreamReader
 
 @Service
 class IOLService(
@@ -16,6 +17,10 @@ class IOLService(
     fun convertToGeohash(latitude: Double, longitude: Double) : String {
         println(GeoHash.withCharacterPrecision(latitude, longitude, 7).toBase32())
         return GeoHash.withCharacterPrecision(latitude, longitude, 7).toBase32()
+    }
+
+    fun getIOLById(id: Long) : InformationOfLocation {
+        return iolRepository.findById(id).get()
     }
 
     fun getIOL(
@@ -41,8 +46,13 @@ class IOLService(
     }
 
     fun loadDataFromCSVAndSaveInBatch() {
-        println("loading data from CSV and saving in batch started")
-        val reader = CSVReaderBuilder(FileReader("src/main/resources/merged_average_output.csv"))
+
+        val inputStream = this.javaClass.classLoader.getResourceAsStream("merged_average_output.csv")
+        if (inputStream == null) {
+            println("Cannot find resource: merged_average_output.csv")
+            return
+        }
+        val reader = CSVReaderBuilder(InputStreamReader(inputStream))
             .withSkipLines(1)
             .build()
 

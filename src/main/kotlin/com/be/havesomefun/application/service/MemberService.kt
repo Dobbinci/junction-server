@@ -14,4 +14,8 @@ class MemberService(
         memberRepository.save(Member.of(memberDto))
     }
 
+    fun getMemberById(id: Long) : Member{
+        return memberRepository.findById(id).get()
+    }
+
 }

@@ -1,9 +1,6 @@
 package com.be.havesomefun.domain.entity
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import jakarta.persistence.*
 
 @Entity
 data class InformationOfLocation (
@@ -15,5 +12,6 @@ data class InformationOfLocation (
     var avgDecibel: Double = 0.0,
     var avgLightLux: Double = 0.0,
     var population: Double = 0.0,
-    var geohash7: String? = null
+    var geohash7: String? = null,
+
 )
