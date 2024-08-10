@@ -22,9 +22,9 @@ class IOLService(
         return GeoHash.withCharacterPrecision(latitude, longitude, 7).toString()
     }
 
-    fun getIOL(geoHash: String, populationRate: Double, luxRate: Double, decibelRate: Double) : InformationOfLocation {
-        return iolRepository.findByGeohash(geoHash)
-    }
+//    fun getIOL(geoHash: String, populationRate: Double, luxRate: Double, decibelRate: Double) : InformationOfLocation {
+//        return iolRepository.findByGeohash(geoHash)
+//    }
 
     fun loadDataFromCSVAndSaveInBatch() {
         val reader = CSVReaderBuilder(FileReader("src/main/resources/merged_average_output.csv"))
