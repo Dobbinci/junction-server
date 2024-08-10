@@ -13,20 +13,35 @@ class IOLService(
 ) {
     private val BATCH_SIZE = 10000
 
-    fun searchData(latitude: Double) : MutableList<InformationOfLocation> {
-        val iolList = iolRepository.findAllByLatitude(latitude)
-        return iolList
-    }
-
     fun convertToGeohash(latitude: Double, longitude: Double) : String {
-        return GeoHash.withCharacterPrecision(latitude, longitude, 7).toString()
+        println(GeoHash.withCharacterPrecision(latitude, longitude, 7).toBase32())
+        return GeoHash.withCharacterPrecision(latitude, longitude, 7).toBase32()
     }
 
-//    fun getIOL(geoHash: String, populationRate: Double, luxRate: Double, decibelRate: Double) : InformationOfLocation {
-//        return iolRepository.findByGeohash(geoHash)
-//    }
+    fun getIOL(
+        time: String,
+        minDecibel: Double,
+        maxDecibel: Double,
+        minLux: Double,
+        maxLux: Double,
+        minPopulation: Double,
+        maxPopulation: Double,
+        geohash7: String
+    ) : MutableList<InformationOfLocation> {
+        return iolRepository.findByFilters(
+            time = time,
+            minDecibel = minDecibel,
+            maxDecibel = maxDecibel,
+            minLux = minLux,
+            maxLux = maxLux,
+            minPopulation = minPopulation,
+            maxPopulation = maxPopulation,
+            geohash7 = geohash7
+        )
+    }
 
     fun loadDataFromCSVAndSaveInBatch() {
+        println("loading data from CSV and saving in batch started")
         val reader = CSVReaderBuilder(FileReader("src/main/resources/merged_average_output.csv"))
             .withSkipLines(1)
             .build()
@@ -39,22 +54,19 @@ class IOLService(
                 batch.add(
                     InformationOfLocation(
                     time = line[0],
-                    geohash = line[1],
-                    population = line[2].toInt(),
-                    latitude = line[3].toDouble(),
-                    longitude = line[4].toDouble(),
-                    si = line[5],
-                    gu = line[6],
-                    dong = line[7]
-                )
+                    avgDecibel = line[1].toDouble(),
+                    avgLightLux = line[2].toDouble(),
+                    population = line[3].toDouble(),
+                    geohash7 = line[4],
+                    )
                 )
                 if (batch.size >= BATCH_SIZE) {
+                    println("Saving batch of ${batch.size} rows")
                     totalRows += batch.size
                     iolRepository.saveAll(batch)
                     println("Saved $totalRows rows")
                     batch.clear()
                 }
-
             }
         }
         if (batch.isNotEmpty()) {
