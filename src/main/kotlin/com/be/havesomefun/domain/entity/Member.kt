@@ -1,6 +1,7 @@
 package com.be.havesomefun.domain.entity
 
 import com.be.havesomefun.application.dto.MemberDto
+import com.be.havesomefun.domain.entity.common.BaseEntity
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
@@ -8,7 +9,7 @@ import jakarta.persistence.Id
 import jakarta.persistence.OneToMany
 
 @Entity
-class Member {
+class Member : BaseEntity() {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

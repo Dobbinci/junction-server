@@ -1,5 +1,6 @@
 package com.be.havesomefun.domain.entity
 
+import com.be.havesomefun.domain.entity.common.BaseEntity
 import jakarta.persistence.*
 
 @Entity
@@ -14,4 +15,4 @@ data class InformationOfLocation (
     var population: Double = 0.0,
     var geohash7: String? = null,
 
-)
+) : BaseEntity()

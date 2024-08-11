@@ -1,13 +1,12 @@
 package com.be.havesomefun.presentation.controller
 
-import com.be.havesomefun.application.dto.IOLDto
 import com.be.havesomefun.application.dto.MemberDto
 import com.be.havesomefun.application.service.BookMarkService
 import com.be.havesomefun.application.service.IOLService
 import com.be.havesomefun.application.service.MemberService
 import com.be.havesomefun.presentation.request.BookMarkRequest
 import com.be.havesomefun.presentation.request.MemberRequest
-import com.be.havesomefun.presentation.response.IOLResponse
+import com.be.havesomefun.presentation.response.BookMarkResponse
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.net.URI
@@ -37,11 +36,9 @@ class MemberController(
     }
 
     @GetMapping("/bookMark")
-    fun getBookMarkList(@RequestParam memberId: Long) : ResponseEntity<List<IOLResponse>> {
+    fun getBookMarkList(@RequestParam memberId: Long) : ResponseEntity<List<BookMarkResponse>> {
         val member = memberService.getMemberById(memberId)
-        val bookMarkList = bookMarkService.getBookMarkList(member)
-
-        val response = bookMarkList.map { IOLResponse.of(IOLDto.of(it))}
+        val response = bookMarkService.getBookMarkList(member)
 
         return ResponseEntity.ok(response)
     }
